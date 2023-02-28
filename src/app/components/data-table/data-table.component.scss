@@ -1,0 +1,63 @@
+.data-table {
+  text-align: left;
+
+  .filter {
+    display: inline-block;
+    margin: 5px;
+    .filter__label {
+      display: block;
+      width: 250px;
+    }
+  }
+
+  table {
+    width: 100%;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  td {
+    padding: 4px;
+    .image-container {
+      text-align: center;
+
+      .image {
+        min-width: 100px;
+        min-height: 100px;
+      }
+    }
+  }
+
+  th {
+    padding: 0 6px;
+    text-align: center;
+    &.sortable {
+      :hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+
+    .arrow {
+      position: relative;
+      &.asc::before {
+        position: absolute;
+        left: -9px;
+        top: -3px;
+        content: '↑';
+      }
+      &.desc::before {
+        position: absolute;
+        left: -9px;
+        content: '↓';
+      }
+    }
+  }
+
+  .pagination {
+    text-align: center;
+  }
+}

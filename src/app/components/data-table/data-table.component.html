@@ -1,0 +1,35 @@
+<div class="data-table">
+  <div class="filters-container">
+    <div class="filter">
+      <label class="filter__label" for="name">Name:</label>
+      <input class="filter__input" id="name" type="text" (input)="onFilter('name', $event)">
+    </div>
+    <div class="filter">
+      <label class="filter__label" for="brand">Brand:</label>
+      <input class="filter__input" id="brand" type="text" (input)="onFilter('brandName', $event)">
+    </div>
+  </div>
+
+  <table>
+    <tr>
+      <th *ngFor="let col of config" [ngClass]="{'sortable': col.type !== fieldTypes.Image}">
+      <span *ngIf="col.type !== fieldTypes.Image; else imageHeader" (click)="onSort(col.field)"
+            [ngClass]="{'arrow': col.field === sortField,'asc': col.field === sortField && sortDirection, 'desc': col.field === sortField &&!sortDirection}">{{col.name}}</span>
+        <ng-template #imageHeader>
+          <span >{{col.name}}</span>
+        </ng-template>
+      </th>
+    </tr>
+    <tr *ngFor="let item of data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+      <td *ngFor="let col of config">
+        <div class="image-container" *ngIf="col.type === fieldTypes.Image; else text">
+          <img class="image" [src]="item[col.field]">
+        </div>
+        <ng-template #text>
+          <span>{{item[col.field]}}</span>
+        </ng-template>
+      </td>
+    </tr>
+  </table>
+  <pagination-controls class="pagination" (pageChange)="currentPage = $event"></pagination-controls>
+</div>
